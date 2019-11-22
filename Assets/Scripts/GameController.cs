@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public GameObject hazard;
+    public GameObject hazard_02;
     public Vector3 spawnValues;
     public int hazardCount;
     public float spawnWait;
@@ -12,13 +13,30 @@ public class GameController : MonoBehaviour
     public float waveWait;
 
     public GUIText scoreText;
-    private int score; 
-
+    public GUIText restartText;
+    public GUIText gameOverText;
+    private int score;
+    private bool gameOver;
+    private bool restart;
     private void Start()
     {
+        gameOver = false;
+        restart = false;
+        restartText.text = "";
+        gameOverText.text = "";
         score = 0;
         UpdateScore();
        StartCoroutine (SpawnWaves());
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+            hazardCount = 1;
+        }
     }
 
     IEnumerator SpawnWaves()
@@ -37,6 +55,14 @@ public class GameController : MonoBehaviour
                 }
             yield return new WaitForSeconds(waveWait);
             hazardCount++;
+            if (gameOver)
+            {
+                restartText.text = "Drücke 'R' um es erneut zu versuchen!";
+
+                restart = true;
+                break;
+
+            }
         }
         
     }   
@@ -52,5 +78,10 @@ public class GameController : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 
+    public void GameOver()
+    {
+        gameOverText.text = "Game Over";
+        gameOver = true;
+    }
  
 }
