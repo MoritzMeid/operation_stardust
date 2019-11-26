@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Playercontroller1 : MonoBehaviour
+public class GameeController : MonoBehaviour
 {
     public GameObject[] hazards;
     public Vector3 spawnValues;
@@ -9,7 +9,7 @@ public class Playercontroller1 : MonoBehaviour
     public float spawnWait;
     public float startWait;
     public float waveWait;
-
+    public int hazardCountt;
     public GUIText scoreText;
     public GUIText restartText;
     public GUIText gameOverText;
@@ -36,6 +36,7 @@ public class Playercontroller1 : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Application.LoadLevel(Application.loadedLevel);
+                hazardCountt = 1;
             }
         }
     }
@@ -54,6 +55,7 @@ public class Playercontroller1 : MonoBehaviour
                 yield return new WaitForSeconds(spawnWait);
             }
             yield return new WaitForSeconds(waveWait);
+            hazardCountt++;
 
             if (gameOver)
             {
