@@ -11,22 +11,28 @@ public class GameController : MonoBehaviour
     public float spawnWait;
     public float startWait;
     public float waveWait;
-
+    public static float playerHealth;
     public GUIText scoreText;
     public GUIText restartText;
     public GUIText gameOverText;
+    public GUIText healthText;
     private int score;
     private bool gameOver;
     private bool restart;
+    public int damage;
+
+
     private void Start()
     {
         gameOver = false;
         restart = false;
         restartText.text = "";
         gameOverText.text = "";
+        playerHealth = 3;
+        UpdateHealth();
         score = 0;
         UpdateScore();
-       StartCoroutine (SpawnWaves());
+        StartCoroutine (SpawnWaves());
     }
 
 
@@ -55,6 +61,7 @@ public class GameController : MonoBehaviour
                 }
             yield return new WaitForSeconds(waveWait);
             hazardCount++;
+
             if (gameOver)
             {
                 restartText.text = "Drücke 'R' um es erneut zu versuchen!";
@@ -83,5 +90,25 @@ public class GameController : MonoBehaviour
         gameOverText.text = "Game Over";
         gameOver = true;
     }
+
+    public void SubHealth ()
+    {
+        
+        playerHealth -= 1;
+        UpdateHealth();
+        if (playerHealth == 0)
+        {   
+
+            gameOver = true;
+        }
+
+    }
+    public void UpdateHealth()
+    {
+        healthText.text = "HP: " + playerHealth;
+
+    }
+
+
  
 }

@@ -29,6 +29,7 @@ public class DestroyedByContact : MonoBehaviour
         {
             return;
         }
+
         if (explosion != null)
         {
             Instantiate(explosion, transform.position, transform.rotation);
@@ -36,9 +37,20 @@ public class DestroyedByContact : MonoBehaviour
 
         if(other.tag == "Player")
         {
-            Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
-            gameController.GameOver();
+            gameController.SubHealth();
+
+            return;
+
         }
+
+        if (GameController.playerHealth == 0)
+        {
+            Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
+
+            gameController.GameOver();
+
+        }
+
         gameController.AddScore(scoreValue);   
         Destroy(other.gameObject);
         Destroy(gameObject);
