@@ -9,6 +9,8 @@ public class Boundary
 }
 public class PlayerController : MonoBehaviour
 {
+    private float deltaX, deltaY;
+
     private Rigidbody rb;
     public float speed;
     public float tilt; 
@@ -61,6 +63,27 @@ public class PlayerController : MonoBehaviour
             Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
             );
         rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
-    }
 
+    if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+    Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    deltaX = touchPos.x - transform.position.x;
+                    deltaY = touchPos.y - transform.position.y;
+                    break;
+
+                case TouchPhase.Moved:
+                    rb.MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
+                    break;
+
+                case TouchPhase.Ended:
+                    rb.velocity = Vector2.zero;
+                    break;
+            }
+        }
+    }
 }
