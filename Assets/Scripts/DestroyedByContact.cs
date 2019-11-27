@@ -37,14 +37,12 @@ public class DestroyedByContact : MonoBehaviour
 
         if(other.tag == "Player")
         {
-            gameController.SubHealth();
+           // gameController.SubHealth();
 
-            return;
+           // return;
 
-        }
-
-        if (GameController.playerHealth == 0)
-        {
+       //  if (GameController.playerHealth == 0)
+       // {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
 
             gameController.GameOver();

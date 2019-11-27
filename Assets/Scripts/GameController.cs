@@ -28,8 +28,8 @@ public class GameController : MonoBehaviour
         restart = false;
         restartText.text = "";
         gameOverText.text = "";
-        playerHealth = 3;
-        UpdateHealth();
+        // playerHealth = 3;
+        // UpdateHealth();
         score = 0;
         UpdateScore();
         StartCoroutine (SpawnWaves());
@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour
         gameOver = true;
     }
 
-    public void SubHealth ()
+ /*   public void SubHealth ()
     {
         
         playerHealth -= 1;
@@ -109,6 +109,6 @@ public class GameController : MonoBehaviour
 
     }
 
-
+*/
  
 }
