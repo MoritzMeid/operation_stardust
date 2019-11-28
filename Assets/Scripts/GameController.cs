@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
+
 
 public class GameController : MonoBehaviour
 {
@@ -12,22 +15,19 @@ public class GameController : MonoBehaviour
     public float startWait;
     public float waveWait;
     public static float playerHealth;
-    public GUIText scoreText;
-    public GUIText restartText;
-    public GUIText gameOverText;
+   // public GUIText scoreText;
     public GUIText healthText;
     private int score;
     private bool gameOver;
     private bool restart;
     public int damage;
-
+    public TextMeshProUGUI tmpScore;
 
     private void Start()
     {
         gameOver = false;
         restart = false;
-        restartText.text = "";
-        gameOverText.text = "";
+       // restartText.text = "";
         // playerHealth = 3;
         // UpdateHealth();
         score = 0;
@@ -36,14 +36,14 @@ public class GameController : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Application.LoadLevel(Application.loadedLevel);
-            hazardCount = 1;
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        Application.LoadLevel(Application.loadedLevel);
+    //        hazardCount = 1;
+    //    }
+    //}
 
     IEnumerator SpawnWaves()
     {
@@ -62,14 +62,14 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(waveWait);
             hazardCount++;
 
-            if (gameOver)
-            {
-                restartText.text = "Drücke 'R' um es erneut zu versuchen!";
+            //if (gameOver)
+            //{
+            //    restartText.text = "Drücke 'R' um es erneut zu versuchen!";
 
-                restart = true;
-                break;
+            //    restart = true;
+            //    break;
 
-            }
+            //}
         }
         
     }   
@@ -82,13 +82,14 @@ public class GameController : MonoBehaviour
 
     void UpdateScore ()
     {
-        scoreText.text = "Score: " + score;
+        tmpScore.text = "Score: " + score;
     }
 
     public void GameOver()
     {
-        gameOverText.text = "Game Over";
-        gameOver = true;
+        //gameOverText.text = "Game Over";
+        //gameOver = true;
+        SceneManager.LoadScene("GameOver");
     }
 
  /*   public void SubHealth ()
