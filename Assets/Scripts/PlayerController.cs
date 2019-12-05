@@ -9,7 +9,7 @@ public class Boundary
 }
 public class PlayerController : MonoBehaviour
 {
-    private float deltaX, deltaY;
+    private float deltaX, deltaY, deltaZ;
 
     private Rigidbody rb;
     public float speed;
@@ -67,21 +67,22 @@ public class PlayerController : MonoBehaviour
     if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-    Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+    Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
 
             switch (touch.phase)
             {
                 case TouchPhase.Began:
                     deltaX = touchPos.x - transform.position.x;
                     deltaY = touchPos.y - transform.position.y;
+                    deltaZ = touchPos.z - transform.position.z;
                     break;
 
                 case TouchPhase.Moved:
-                    rb.MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
+                    rb.MovePosition(new Vector3(touchPos.x - deltaX, touchPos.y - deltaY, touchPos.z - deltaZ));
                     break;
 
                 case TouchPhase.Ended:
-                    rb.velocity = Vector2.zero;
+                    rb.velocity = Vector3.zero;
                     break;
             }
         }
