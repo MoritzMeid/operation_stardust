@@ -18,10 +18,10 @@ using UnityEngine;
 /// Script that rotates an object at a constant speed.
 /// </summary>
 public class RotatePlanet : MonoBehaviour {
-    public Vector3 axis = new Vector3(5.0f, 1.0f, 6.0f);
-    public float angularSpeed = 20.0f;
+    public Vector3 axis = new Vector3(5.0f, 1.0f, 0.5f);
+    public float angularSpeed = 5.0f;
   private void Update() {
-    gameObject.transform.Rotate(axis, angularSpeed * Time.deltaTime, Space.World);
+    gameObject.transform.Rotate(axis, angularSpeed * Time.deltaTime, Space.Self);
   }
 }
 

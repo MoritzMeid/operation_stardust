@@ -395,11 +395,14 @@ public class Planet : MonoBehaviour
 
         MeshRenderer surfaceRenderer = m_PlanetMesh.AddComponent<MeshRenderer>();
         surfaceRenderer.material = m_Material;
-        m_PlanetMesh.transform.position = new Vector3(15.0f, 0);
+        m_PlanetMesh.transform.position = new Vector3(15.0f, 10f, 50f); ;
         Vector3 newScale = transform.localScale;
         newScale *= 4;
         m_PlanetMesh.transform.localScale = newScale;
         m_PlanetMesh.AddComponent<RotatePlanet>();
+        m_PlanetMesh.AddComponent<Rigidbody>();
+        m_PlanetMesh.AddComponent<Mover>();
+       
 
         Mesh terrainMesh = new Mesh();
 
