@@ -20,23 +20,24 @@ public class GameController : MonoBehaviour
     public float waveWait;
     public static float playerHealth;
    // public GUIText scoreText;
-    public GUIText healthText;
     private int score;
     private bool gameOver;
     private bool restart;
     public int damage;
     public TextMeshProUGUI tmpScore;
+    public TextMeshProUGUI healthText;
 
     private void Start()
     {
         gameOver = false;
         restart = false;
-       // restartText.text = "";
-        // playerHealth = 3;
-        // UpdateHealth();
+        playerHealth = 3;
+        UpdateHealth();
+        // restartText.text = "";
         score = 0;
         UpdateScore();
         StartCoroutine (SpawnWaves());
+        PlayerPrefs.GetInt("currentScore");
     }
 
 
@@ -49,58 +50,82 @@ public class GameController : MonoBehaviour
     //    }
     //}
 
+    //IEnumerator SpawnWaves()
+    //{
+    //    yield return new WaitForSeconds(startWait);
+
+    //    while (true)
+    //    {
+    //        for (int i = 0; i < hazardCount; i++)
+    //        {
+    //            Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+    //            Vector3 spawnPosition2 = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+    //            Quaternion spawnRotation = Quaternion.identity;
+
+    //            Instantiate(enemy, spawnPosition2, spawnRotation);
+    //            Instantiate(enemy_02, spawnPosition2, spawnRotation);
+    //            Instantiate(hazard, spawnPosition, spawnRotation);
+    //            Instantiate(hazard_02, spawnPosition, spawnRotation);
+    //            Instantiate(hazard_03, spawnPosition, spawnRotation);
+
+    //            yield return new WaitForSeconds(spawnWait);
+    //        }
+    //        yield return new WaitForSeconds(waveWait);
+    //        hazardCount++;
+    //    }
+    //}
+
     IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(startWait);
-       
+
         while (true)
-            {
+        {
             for (int i = 0; i < hazardCount; i++)
             {
-                    Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-                    Vector3 spawnPosition2 = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-                    Quaternion spawnRotation = Quaternion.identity;
-
-                    Instantiate(enemy, spawnPosition2, spawnRotation);
-
-                    Instantiate(enemy_02, spawnPosition2, spawnRotation);
-
-                    Instantiate(hazard, spawnPosition, spawnRotation);
-
-                    Instantiate(hazard_02, spawnPosition, spawnRotation);
-
-                    Instantiate(hazard_03, spawnPosition, spawnRotation);
-
-                    
-
-
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                Quaternion spawnRotation = Quaternion.identity;
+                Instantiate(hazard, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);
 
-                }
+            }
             yield return new WaitForSeconds(waveWait);
             hazardCount++;
-
-            //if (gameOver)
-            //{
-            //    restartText.text = "Drücke 'R' um es erneut zu versuchen!";
-
-            //    restart = true;
-            //    break;
-
-            //}
         }
-        
-    }   
+    }
 
-    public void AddScore (int newScoreValue)
+            public void AddScore (int newScoreValue)
     {
         score += newScoreValue;
         UpdateScore();
+        NextLevelScore();
+        setHighScore();
     }
 
     void UpdateScore ()
     {
         tmpScore.text = "Score: " + score;
+    }
+
+     void currentScore ()
+    {
+        PlayerPrefs.SetInt("currentScore", score);
+    }
+
+    void setHighScore()
+    {
+        if (score > PlayerPrefs.GetInt("Highscore"))
+        {
+            PlayerPrefs.SetInt("Highscore", score);
+        }
+    }
+
+    void NextLevelScore()
+    {
+        if (score >= 150 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 150
+        {
+            SceneManager.LoadScene("Level2");
+        }
     }
 
     public void GameOver()
@@ -110,24 +135,23 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
 
- /*   public void SubHealth ()
+    public void SubHealth()
     {
-        
+
         playerHealth -= 1;
         UpdateHealth();
-        if (playerHealth == 0)
-        {   
 
-            gameOver = true;
-        }
+        //if (playerHealth == 0)
+        //{
+
+        //    GameOver();
+        //}
 
     }
     public void UpdateHealth()
     {
-        healthText.text = "HP: " + playerHealth;
+        healthText.text = "Health: " + playerHealth;
 
     }
 
-*/
- 
 }

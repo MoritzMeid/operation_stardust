@@ -35,22 +35,19 @@ public class DestroyedByContact : MonoBehaviour
             Instantiate(explosion, transform.position, transform.rotation);
         }
 
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
-           // gameController.SubHealth();
-
-           // return;
-
-       //  if (GameController.playerHealth == 0)
-       // {
+            gameController.SubHealth();
+        }
+        if (GameController.playerHealth == 0)
+        {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
 
             gameController.GameOver();
-
         }
 
-        gameController.AddScore(scoreValue);   
-        Destroy(other.gameObject);
+        gameController.AddScore(scoreValue);
+        //Destroy(other.gameObject); //Destroy Player
         Destroy(gameObject);
     }
 }
