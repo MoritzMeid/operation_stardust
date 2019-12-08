@@ -9,7 +9,10 @@ public class GameController : MonoBehaviour
 {
     public GameObject hazard;
     public GameObject hazard_02;
+    public GameObject hazard_03;
     public GameObject enemy;
+    public GameObject enemy_02;
+
     public Vector3 spawnValues;
     public int hazardCount;
     public float spawnWait;
@@ -55,10 +58,22 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < hazardCount; i++)
             {
                     Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                    Vector3 spawnPosition2 = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                     Quaternion spawnRotation = Quaternion.identity;
+
+                    Instantiate(enemy, spawnPosition2, spawnRotation);
+
+                    Instantiate(enemy_02, spawnPosition2, spawnRotation);
+
                     Instantiate(hazard, spawnPosition, spawnRotation);
+
                     Instantiate(hazard_02, spawnPosition, spawnRotation);
-                    Instantiate(enemy, spawnPosition, spawnRotation);
+
+                    Instantiate(hazard_03, spawnPosition, spawnRotation);
+
+                    
+
+
                 yield return new WaitForSeconds(spawnWait);
 
                 }

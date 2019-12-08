@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     public GameObject shot;
-    public Transform shotSpawn;
+    public Transform[] shotSpawns;
     public float fireRate;
     public float delay;
     private AudioSource audioSource;
@@ -21,8 +21,11 @@ public class WeaponController : MonoBehaviour
   
     void Fire()
     {
-        Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-        audioSource.Play();
+        foreach (var shotSpawn in shotSpawns)
+        {
+            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            audioSource.Play();
+        }
         
     }
 }
