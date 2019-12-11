@@ -101,7 +101,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-            public void AddScore (int newScoreValue)
+    public void AddScore (int newScoreValue)
     {
         score += newScoreValue;
         UpdateScore();

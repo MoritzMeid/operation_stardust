@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameOverMenu : MonoBehaviour
 {
     public TextMeshProUGUI ScoreText;
-
-    // Start is called before the first frame update
     void Start()
     {
         gameObject.SetActive(false);
