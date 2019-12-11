@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
     public bool spawnEnemy; 
 
     public int damage;
+    public GameOverMenu gameOverMenu;
     public TextMeshProUGUI tmpScore;
     public TextMeshProUGUI healthText;
 
@@ -136,9 +137,12 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
+        gameOverMenu.ToggleEndMenu(score);
+        Time.timeScale = 0f;
         //gameOverText.text = "Game Over";
         //gameOver = true;
-        SceneManager.LoadScene("GameOver");
+        //SceneManager.LoadScene("GameOver");
+
     }
 
     public void SubHealth()

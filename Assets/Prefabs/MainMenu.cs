@@ -28,7 +28,8 @@ public class MainMenu : MonoBehaviour
 
     public void RestartGame()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
     public void LevelOne()
