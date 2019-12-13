@@ -393,9 +393,10 @@ public class Planet : MonoBehaviour
 
         m_PlanetMesh = new GameObject("Planet Mesh");
 
+
         MeshRenderer surfaceRenderer = m_PlanetMesh.AddComponent<MeshRenderer>();
         surfaceRenderer.material = m_Material;
-        m_PlanetMesh.transform.position = new Vector3(15.0f, 10f, 50f); ;
+        m_PlanetMesh.transform.position = new Vector3(5.0f, 10f, 25f);
         Vector3 newScale = transform.localScale;
         newScale *= 4;
         m_PlanetMesh.transform.localScale = newScale;
