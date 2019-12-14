@@ -25,7 +25,7 @@ public class DestroyedByContact : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag ("Boundary") || other.CompareTag ("Enemy"))
+        if (other.CompareTag ("Boundary") || other.CompareTag ("Enemy") || other.CompareTag ("PowerupH"))
         {
             return;
         }
@@ -34,6 +34,9 @@ public class DestroyedByContact : MonoBehaviour
         {
             Instantiate(explosion, transform.position, transform.rotation);
         }
+
+
+        
 
         if (other.tag == "Player")
         {

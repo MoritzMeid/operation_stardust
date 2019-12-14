@@ -25,7 +25,8 @@ public class GameController : MonoBehaviour
     private bool restart;
 
     public bool spawnAsteroid;
-    public bool spawnEnemy; 
+    public bool spawnEnemy;
+  
 
     public int damage;
     public GameOverMenu gameOverMenu;
@@ -38,7 +39,7 @@ public class GameController : MonoBehaviour
         restart = false;
         playerHealth = 3;
         UpdateHealth();
-        // restartText.text = "";
+  
         score = 0;
         UpdateScore();
         StartCoroutine (SpawnWaves());
@@ -46,39 +47,7 @@ public class GameController : MonoBehaviour
     }
 
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.R))
-    //    {
-    //        Application.LoadLevel(Application.loadedLevel);
-    //        hazardCount = 1;
-    //    }
-    //}
-
-    //IEnumerator SpawnWaves()
-    //{
-    //    yield return new WaitForSeconds(startWait);
-
-    //    while (true)
-    //    {
-    //        for (int i = 0; i < hazardCount; i++)
-    //        {
-    //            Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-    //            Vector3 spawnPosition2 = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-    //            Quaternion spawnRotation = Quaternion.identity;
-
-    //            Instantiate(enemy, spawnPosition2, spawnRotation);
-    //            Instantiate(enemy_02, spawnPosition2, spawnRotation);
-    //            Instantiate(hazard, spawnPosition, spawnRotation);
-    //            Instantiate(hazard_02, spawnPosition, spawnRotation);
-    //            Instantiate(hazard_03, spawnPosition, spawnRotation);
-
-    //            yield return new WaitForSeconds(spawnWait);
-    //        }
-    //        yield return new WaitForSeconds(waveWait);
-    //        hazardCount++;
-    //    }
-    //}
+  
 
     IEnumerator SpawnWaves()
     {
@@ -139,9 +108,6 @@ public class GameController : MonoBehaviour
     {
         gameOverMenu.ToggleEndMenu(score);
         Time.timeScale = 0f;
-        //gameOverText.text = "Game Over";
-        //gameOver = true;
-        //SceneManager.LoadScene("GameOver");
 
     }
 
@@ -151,13 +117,16 @@ public class GameController : MonoBehaviour
         playerHealth -= 1;
         UpdateHealth();
 
-        //if (playerHealth == 0)
-        //{
-
-        //    GameOver();
-        //}
-
+  
     }
+
+    public void PowerUpH()
+    {
+        playerHealth += 1;
+        UpdateHealth();
+    }
+
+
     public void UpdateHealth()
     {
         healthText.text = "Health: " + playerHealth;
