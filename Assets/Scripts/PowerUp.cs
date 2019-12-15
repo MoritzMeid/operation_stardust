@@ -5,6 +5,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     private GameController gameController;
+    public GameObject pickupEffect;
     public int scoreValue;
 
     private void Start()
@@ -22,21 +23,24 @@ public class PowerUp : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Boundary") || other.CompareTag("Enemy"))
-        {
-            return;
-        }
 
-        if (other.tag == "Player")
+    private void OnTriggerEnter (Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
             gameController.PowerUpH();
-
+            Pickup(other);
+            Destroy(gameObject);
 
         }
-        gameController.AddScore(scoreValue);
-        Destroy(gameObject);
+    }
 
+    void Pickup(Collider player)
+    {
+        Instantiate(pickupEffect, transform.position, transform.rotation);
+
+        //effect
+
+        Destroy(gameObject);
     }
 }
