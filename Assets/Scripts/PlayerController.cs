@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     public float speed;
-    public float tilt; 
+    public float tilt;
     public Boundary boundary;
     public GameObject shot;
     public Transform[] shotSpawns;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        if(Input.GetButton("Fire1") && Time.time > nextFire)
+        if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             foreach (var shotSpawn in shotSpawns)
             {
@@ -41,20 +41,18 @@ public class PlayerController : MonoBehaviour
                 Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                 audioSource.Play();
             }
-           
-        }
-           
 
-        
+        }
 
     }
+
 
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
         rb.velocity = movement * speed;
 
         rb.position = new Vector3(
@@ -64,10 +62,10 @@ public class PlayerController : MonoBehaviour
             );
         rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
 
-    if (Input.touchCount > 0)
+        if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-    Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
 
             switch (touch.phase)
             {
@@ -88,3 +86,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
