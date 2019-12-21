@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUp : MonoBehaviour
+public class PowerUpH : MonoBehaviour
 {
     private GameController gameController;
     public GameObject pickupEffect;
@@ -29,18 +29,11 @@ public class PowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameController.PowerUpH();
-            Pickup(other);
+           
             Destroy(gameObject);
 
         }
     }
 
-    void Pickup(Collider player)
-    {
-        Instantiate(pickupEffect, transform.position, transform.rotation);
-
-        //effect
-
-        Destroy(gameObject);
-    }
+    
 }
