@@ -98,9 +98,13 @@ public class GameController : MonoBehaviour
 
     void NextLevelScore()
     {
-        if (score >= 150 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 150
+        if (score >= 100 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 150
         {
             SceneManager.LoadScene("Level2");
+        }
+        if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 150
+        {
+            SceneManager.LoadScene("Level3.5");
         }
     }
 
@@ -113,10 +117,18 @@ public class GameController : MonoBehaviour
 
     public void SubHealth()
     {
+        if(GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject.active==true)
+        // if (GameObject.FindGameObjectWithTag("Player").transform.GetChild(0) == isActiveAndEnabled)
+        {
+            return;
+        }
+        else
+        {
 
-        playerHealth -= 1;
-        UpdateHealth();
+            playerHealth -= 1;
+            UpdateHealth();
 
+        }
   
     }
 

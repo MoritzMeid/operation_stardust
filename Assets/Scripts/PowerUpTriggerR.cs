@@ -37,7 +37,7 @@ public class PowerUpTriggerR : MonoBehaviour
         yield return new WaitForSeconds(PowerUpTime);
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpR>().enabled = false;
-
+        Destroy(gameObject);
         yield break;
 
     }

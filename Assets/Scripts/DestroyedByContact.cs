@@ -25,7 +25,7 @@ public class DestroyedByContact : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag ("Boundary") || other.CompareTag ("Enemy") || other.CompareTag ("PowerupH") )
+        if (other.CompareTag ("Boundary") || other.CompareTag ("Enemy") || other.CompareTag ("PowerUpR") )
         {
             return;
         }
@@ -39,9 +39,11 @@ public class DestroyedByContact : MonoBehaviour
         
 
         if (other.tag == "Player")
-        {
+        {   
+
             gameController.SubHealth();
         }
+
         if (GameController.playerHealth == 0)
         {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
