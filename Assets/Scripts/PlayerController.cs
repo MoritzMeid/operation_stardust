@@ -62,28 +62,35 @@ public class PlayerController : MonoBehaviour
             );
         rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
 
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-
-            switch (touch.phase)
+            if (Input.touchCount > 0)
             {
-                case TouchPhase.Began:
-                    deltaX = touchPos.x - transform.position.x;
-                    deltaY = touchPos.y - transform.position.y;
-                    deltaZ = touchPos.z - transform.position.z;
-                    break;
+                Touch touch = Input.GetTouch(0);
+                Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
 
-                case TouchPhase.Moved:
-                    rb.MovePosition(new Vector3(touchPos.x - deltaX, touchPos.y - deltaY, touchPos.z - deltaZ));
-                    break;
+                switch (touch.phase)
+                {
+                    case TouchPhase.Began:
+                        deltaX = touchPos.x - transform.position.x;
+                        deltaY = touchPos.y - transform.position.y;
+                        deltaZ = touchPos.z - transform.position.z;
+                        break;
 
-                case TouchPhase.Ended:
-                    rb.velocity = Vector3.zero;
-                    break;
+                    case TouchPhase.Moved:
+                        rb.MovePosition(new Vector3(touchPos.x - deltaX, touchPos.y - deltaY, touchPos.z - deltaZ));
+                        break;
+
+                    case TouchPhase.Ended:
+                        rb.velocity = Vector3.zero;
+                        break;
+                   
+                }
             }
-        }
+        rb.position = new Vector3(
+       Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
+       0.0f,
+       Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
+       );
+        rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
     }
 }
 
