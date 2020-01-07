@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene("Level1");
+        Time.timeScale = 1f;
     }
 
     public void ClickMenu()
@@ -35,22 +36,28 @@ public class MainMenu : MonoBehaviour
     public void LevelOne()
     {
         SceneManager.LoadScene("Level1");
+        Time.timeScale = 1f;
+
     }
     public void LevelTwo()
     {
         SceneManager.LoadScene("Level2");
+        Time.timeScale = 1f;
     }
     public void LevelThree()
     {
         SceneManager.LoadScene("Level3");
+        Time.timeScale = 1f;
     }
     public void LevelFour()
     {
         SceneManager.LoadScene("Level4");
+        Time.timeScale = 1f;
     }
     public void LevelFive()
     {
         SceneManager.LoadScene("Level5");
+        Time.timeScale = 1f;
     }
     public void QuitGame()
     {

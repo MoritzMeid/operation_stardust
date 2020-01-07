@@ -98,13 +98,13 @@ public class GameController : MonoBehaviour
 
     void NextLevelScore()
     {
-        if (score >= 100 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 150
+        if (score >= 100 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 100
         {
             SceneManager.LoadScene("Level2");
         }
-        if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 150
+        if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
-            SceneManager.LoadScene("Level3.5");
+            SceneManager.LoadScene("Level3");
         }
     }
 

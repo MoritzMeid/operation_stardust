@@ -15,6 +15,7 @@ public class GameOverMenu : MonoBehaviour
    public void ToggleEndMenu(float score)
     {
         gameObject.SetActive(true);
+        Time.timeScale = 0f;
         ScoreText.text = "Score: " + (score + 10);
     }
 
