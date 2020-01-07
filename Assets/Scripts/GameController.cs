@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
 
     public int damage;
     public GameOverMenu gameOverMenu;
+    public NextLevelMenu nextLevelMenu;
     public TextMeshProUGUI tmpScore;
     public TextMeshProUGUI healthText;
 
@@ -100,12 +101,19 @@ public class GameController : MonoBehaviour
     {
         if (score >= 100 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 100
         {
-            SceneManager.LoadScene("Level2");
+            NextLevel();
+            //SceneManager.LoadScene("Level2");
         }
         if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
             SceneManager.LoadScene("Level3");
         }
+    }
+
+    public void NextLevel()
+    {
+        nextLevelMenu.ToggleNextMenu();
+        Time.timeScale = 0f;
     }
 
     public void GameOver()
