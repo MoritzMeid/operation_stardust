@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class NextLevelMenu : MonoBehaviour
 {
-    public TextMeshProUGUI ScoreText;
+   // public TextMeshProUGUI ScoreText;
     void Start()
     {
         gameObject.SetActive(false);
