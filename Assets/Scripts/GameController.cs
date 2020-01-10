@@ -106,7 +106,8 @@ public class GameController : MonoBehaviour
         }
         if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
-            SceneManager.LoadScene("Level3");
+            NextLevel();
+            //SceneManager.LoadScene("Level3");
         }
     }
 
