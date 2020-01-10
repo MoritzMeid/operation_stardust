@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Boundary
@@ -18,32 +19,66 @@ public class PlayerController : MonoBehaviour
     public GameObject shot;
     public Transform[] shotSpawns;
     public float fireRate;
+    public int weaponHeat;
+    public int weaponMAXHeat;
+    private bool isHot;
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
+
     private float nextFire;
+
+    public Slider slider; 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        slider = GameObject.Find("Magazin").GetComponent<Slider>();
+        slider.value = 0;
     }
 
 
     private void Update()
     {
 
+        
 
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
+        if (Input.GetButton("Fire1") && Time.time > nextFire && !isHot)
         {
             foreach (var shotSpawn in shotSpawns)
             {
                 nextFire = Time.time + fireRate;
                 Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                 audioSource.Play();
+                weaponHeat++;
+                slider.value++;
+                
             }
 
+            if(weaponHeat == weaponMAXHeat)
+            {
+                StartCoroutine(WeaponCooldown());
+            }
+
+            
         }
 
+    }
+
+    private IEnumerator WeaponCooldown()
+    {
+        isHot = true;
+
+        yield return new WaitForSeconds(1);
+
+        for(int i = 0; i < 5; i++)
+        {
+            yield return new WaitForSeconds(0.5f);
+            weaponHeat = weaponHeat - 2;
+            slider.value = slider.value - 2;
+        }
+
+        isHot = false;
     }
 
 
