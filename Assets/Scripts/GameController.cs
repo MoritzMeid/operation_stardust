@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
     public int damage;
     public GameOverMenu gameOverMenu;
     public NextLevelMenu nextLevelMenu;
+    public BossController bossController;
     public TextMeshProUGUI tmpScore;
     public TextMeshProUGUI healthText;
 
@@ -52,22 +53,27 @@ public class GameController : MonoBehaviour
 
     IEnumerator SpawnWaves()
     {
-        yield return new WaitForSeconds(startWait);
-
         while (true)
         {
             for (int i = 0; i < hazardCount; i++)
             {
-                GameObject hazard = hazards[Random.Range(0, hazards.Length)];
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-                Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazard, spawnPosition, spawnRotation);
-               
-                yield return new WaitForSeconds(spawnWait);
+                if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
+                {
+                    yield break;
+                }
+                else
+                {
+                    GameObject hazard = hazards[Random.Range(0, hazards.Length)];
+                    Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                    Quaternion spawnRotation = Quaternion.identity;
+                    Instantiate(hazard, spawnPosition, spawnRotation);
 
+                    yield return new WaitForSeconds(spawnWait);
+
+                }
+                yield return new WaitForSeconds(waveWait);
+                hazardCount++;
             }
-            yield return new WaitForSeconds(waveWait);
-            hazardCount++;
         }
     }
 
@@ -106,13 +112,21 @@ public class GameController : MonoBehaviour
         }
         if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
+            BossBattle(); //Endboss
+        }
+        if (score >= 300 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
+        {
             NextLevel();
-            //SceneManager.LoadScene("Level3");
         }
         if (score >= 400 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3")) //if you reach the highscore of 300
         {
             NextLevel();
         }
+    }
+
+    public void BossBattle()
+    {
+        bossController.ToggleBoss();
     }
 
     public void NextLevel()
