@@ -71,9 +71,10 @@ public class GameController : MonoBehaviour
                     yield return new WaitForSeconds(spawnWait);
 
                 }
-                yield return new WaitForSeconds(waveWait);
-                hazardCount++;
+                
             }
+            yield return new WaitForSeconds(waveWait);
+            hazardCount++;
         }
     }
 
