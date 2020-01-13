@@ -6,7 +6,7 @@ public class BossController : MonoBehaviour
 {
     void Start()
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 
     public void ToggleBoss()
