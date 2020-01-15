@@ -30,14 +30,10 @@ public class DestroyedByContact : MonoBehaviour
             return;
         }
 
+
         if (explosion != null)
         {
             Instantiate(explosion, transform.position, transform.rotation);
-        }
-
-        if (other.CompareTag("UsainBolt"))
-        {
-            Destroy(other.gameObject);
         }
         
 
@@ -54,6 +50,10 @@ public class DestroyedByContact : MonoBehaviour
             gameController.GameOver();
         }
 
+        if (!other.CompareTag("Player"))
+        {
+            Destroy(other.gameObject);
+        }
         gameController.AddScore(scoreValue);
         //Destroy(other.gameObject); //Destroy Player
         Destroy(gameObject);
