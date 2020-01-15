@@ -35,7 +35,10 @@ public class DestroyedByContact : MonoBehaviour
             Instantiate(explosion, transform.position, transform.rotation);
         }
 
-
+        if (other.CompareTag("UsainBolt"))
+        {
+            Destroy(other.gameObject);
+        }
         
 
         if (other.tag == "Player")
