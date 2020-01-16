@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("dialoguelevel1");
         Time.timeScale = 1f;
     }
 
@@ -35,18 +35,18 @@ public class MainMenu : MonoBehaviour
 
     public void LevelOne()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("dialoguelevel1");
         Time.timeScale = 1f;
 
     }
     public void LevelTwo()
     {
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene("dialoguelevel2");
         Time.timeScale = 1f;
     }
     public void LevelThree()
     {
-        SceneManager.LoadScene("Level3");
+        SceneManager.LoadScene("dialoguelevel3");
         Time.timeScale = 1f;
     }
     public void LevelFour()
