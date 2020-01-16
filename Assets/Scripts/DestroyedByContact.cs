@@ -25,17 +25,16 @@ public class DestroyedByContact : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag ("Boundary") || other.CompareTag ("Enemy") || other.CompareTag ("PowerUpR") )
+        if (other.CompareTag ("Boundary") || other.CompareTag ("Enemy") || other.CompareTag ("PowerUpR") || other.CompareTag("PowerupH"))
         {
             return;
         }
+
 
         if (explosion != null)
         {
             Instantiate(explosion, transform.position, transform.rotation);
         }
-
-
         
 
         if (other.tag == "Player")
@@ -51,6 +50,10 @@ public class DestroyedByContact : MonoBehaviour
             gameController.GameOver();
         }
 
+        if (!other.CompareTag("Player"))
+        {
+            Destroy(other.gameObject);
+        }
         gameController.AddScore(scoreValue);
         //Destroy(other.gameObject); //Destroy Player
         Destroy(gameObject);
