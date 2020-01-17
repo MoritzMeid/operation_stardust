@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
 
     private float nextFire;
-
+    float initAccelY;
+    float initAccelX;
     public Slider slider; 
 
     private void Start()
@@ -35,8 +36,16 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         slider = GameObject.Find("Magazin").GetComponent<Slider>();
         slider.value = 0;
+        getInitAccl();
+
     }
 
+
+    void getInitAccl()
+    {
+        initAccelX = Input.acceleration.x;
+        initAccelY = Input.acceleration.y;
+    }
 
     private void Update()
     {
@@ -99,7 +108,12 @@ public class PlayerController : MonoBehaviour
 
 
         float moveHorizontalGyro = Input.acceleration.x;
-        float moveVerticalGyro = Input.acceleration.y;
+        float moveVerticalGyro = Input.acceleration.y - initAccelY;
+
+        if (moveVerticalGyro < 0)
+        {
+            moveVerticalGyro = moveVerticalGyro * 5;
+        }
 
         Vector3 movementGyro = new Vector3(moveHorizontalGyro, 0.0f, moveVerticalGyro);
         rb.velocity = movementGyro * speed;
@@ -146,6 +160,7 @@ public class PlayerController : MonoBehaviour
         //);
         // rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
     }
+
 
 
  
