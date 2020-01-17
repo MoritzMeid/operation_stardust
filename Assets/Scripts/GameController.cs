@@ -26,9 +26,8 @@ public class GameController : MonoBehaviour
 
     public bool spawnAsteroid;
     public bool spawnEnemy;
-  
 
-    public int damage;
+
     public GameOverMenu gameOverMenu;
     public NextLevelMenu nextLevelMenu;
     public BossController bossController;
@@ -130,6 +129,8 @@ public class GameController : MonoBehaviour
         bossController.ToggleBoss();
     }
 
+ 
+
     public void NextLevel()
     {
         nextLevelMenu.ToggleNextMenu();
@@ -146,7 +147,7 @@ public class GameController : MonoBehaviour
     public void SubHealth()
     {
         if(GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject.active==true)
-        // if (GameObject.FindGameObjectWithTag("Player").transform.GetChild(0) == isActiveAndEnabled)
+        
         {
             return;
         }

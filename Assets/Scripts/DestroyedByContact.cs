@@ -8,6 +8,7 @@ public class DestroyedByContact : MonoBehaviour
     public GameObject playerExplosion;
     public int scoreValue;
     private GameController gameController;
+    private BossController bossController;
 
     private void Start()
     {
@@ -25,11 +26,12 @@ public class DestroyedByContact : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag ("Boundary") || other.CompareTag ("Enemy") || other.CompareTag ("PowerUpR") || other.CompareTag("PowerupH"))
+        if (other.CompareTag ("Boundary") || other.CompareTag ("Enemy") || other.CompareTag ("PowerUpR") || other.CompareTag("PowerupH") || (other.CompareTag("Boss")))
         {
             return;
         }
 
+  
 
         if (explosion != null)
         {
@@ -55,7 +57,7 @@ public class DestroyedByContact : MonoBehaviour
             Destroy(other.gameObject);
         }
         gameController.AddScore(scoreValue);
-        //Destroy(other.gameObject); //Destroy Player
+       
         Destroy(gameObject);
     }
 }
