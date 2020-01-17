@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     public int weaponHeat;
     public int weaponMAXHeat;
     private bool isHot;
+    internal bool powerUp;
+
 
     public AudioSource audioSource;
 
@@ -59,8 +61,13 @@ public class PlayerController : MonoBehaviour
                 nextFire = Time.time + fireRate;
                 Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                 audioSource.Play();
-                weaponHeat++;
-                slider.value++;
+
+                if (!powerUp)
+                {
+                    weaponHeat++;
+                    slider.value++;
+                }
+                
                 
             }
 
