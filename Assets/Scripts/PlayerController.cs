@@ -84,48 +84,70 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        //float moveHorizontal = Input.GetAxis("Horizontal");
+        //float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.velocity = movement * speed;
+        //Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        //rb.velocity = movement * speed;
+
+        //rb.position = new Vector3(
+        //    Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
+        //    0.0f,
+        //    Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
+        //    );
+        //rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
+
+
+        float moveHorizontalGyro = Input.acceleration.x;
+        float moveVerticalGyro = Input.acceleration.y;
+
+        Vector3 movementGyro = new Vector3(moveHorizontalGyro, 0.0f, moveVerticalGyro);
+        rb.velocity = movementGyro * speed;
 
         rb.position = new Vector3(
-            Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
-            0.0f,
-            Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
-            );
+           Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
+           0.0f,
+           Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
+           );
         rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
 
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
 
-                switch (touch.phase)
-                {
-                    case TouchPhase.Began:
-                        deltaX = touchPos.x - transform.position.x;
-                        deltaY = touchPos.y - transform.position.y;
-                        deltaZ = touchPos.z - transform.position.z;
-                        break;
 
-                    case TouchPhase.Moved:
-                        rb.MovePosition(new Vector3(touchPos.x - deltaX, touchPos.y - deltaY, touchPos.z - deltaZ));
-                        break;
 
-                    case TouchPhase.Ended:
-                        rb.velocity = Vector3.zero;
-                        break;
-                   
-                }
-            }
-        rb.position = new Vector3(
-       Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
-       0.0f,
-       Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
-       );
-        rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
+
+
+        //if (Input.touchCount > 0)
+        //{
+        //    Touch touch = Input.GetTouch(0);
+        //    Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+
+        //    switch (touch.phase)
+        //    {
+        //        case TouchPhase.Began:
+        //            deltaX = touchPos.x - transform.position.x;
+        //            deltaY = touchPos.y - transform.position.y;
+        //            deltaZ = touchPos.z - transform.position.z;
+        //            break;
+
+        //        case TouchPhase.Moved:
+        //            rb.MovePosition(new Vector3(touchPos.x - deltaX, touchPos.y - deltaY, touchPos.z - deltaZ));
+        //            break;
+
+        //        case TouchPhase.Ended:
+        //            rb.velocity = Vector3.zero;
+        //            break;
+
+        //    }
+        //}
+        // rb.position = new Vector3(
+        //Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
+        //0.0f,
+        //Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
+        //);
+        // rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
     }
+
+
+ 
 }
 
