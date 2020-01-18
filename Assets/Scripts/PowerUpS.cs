@@ -21,7 +21,7 @@ public class PowerUpS : MonoBehaviour
     IEnumerator Size()
     {
 
-        GameObject.FindWithTag("Player").transform.localScale *= multiplier;
+        GameObject.FindWithTag("Player").transform.localScale /= multiplier;
 
         GameObject.FindGameObjectWithTag("PowerUpS").transform.GetChild(0).gameObject.SetActive(false);
 
@@ -29,7 +29,7 @@ public class PowerUpS : MonoBehaviour
 
         yield return new WaitForSeconds(PowerUpTime);
 
-        GameObject.FindWithTag("Player").transform.localScale /= multiplier;
+        GameObject.FindWithTag("Player").transform.localScale *= multiplier;
 
         Destroy(gameObject);
 
