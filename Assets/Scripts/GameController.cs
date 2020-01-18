@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
     public bool spawnAsteroid;
     public bool spawnEnemy;
    
-  
+    private GameObject warning;
 
     public int damage;
     public GameOverMenu gameOverMenu;
@@ -41,6 +41,10 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        warning = GameObject.FindGameObjectWithTag("Warning");
+        warning.SetActive(false);
+
+
         gameOver = false;
         restart = false;
        
@@ -116,7 +120,7 @@ public class GameController : MonoBehaviour
             NextLevel();
             //SceneManager.LoadScene("Level2");
         }
-        if (score >= 250 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
+        if (score >= 20 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
             
             StartCoroutine(StartFinalBattle()); //Endboss
@@ -134,8 +138,21 @@ public class GameController : MonoBehaviour
 
     IEnumerator StartFinalBattle()
     {
+
         
-        yield return new WaitForSeconds(4);
+        warning.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.6f);
+        warning.SetActive(false);
+        yield return new WaitForSecondsRealtime(0.5f);
+        warning.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.6f);
+        warning.SetActive(false);
+        yield return new WaitForSecondsRealtime(0.5f);
+        warning.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.6f);
+        warning.SetActive(false);
+        yield return new WaitForSecondsRealtime(0.5f);
+
         BossBattle();
     }
 
