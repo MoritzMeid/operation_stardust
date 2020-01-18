@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
 
     public bool spawnAsteroid;
     public bool spawnEnemy;
+   
   
 
     public int damage;
@@ -35,16 +36,20 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI tmpScore;
     public TextMeshProUGUI healthText;
 
+    Coroutine wavesSpawner;
+    
+
     private void Start()
     {
         gameOver = false;
         restart = false;
+       
         playerHealth = 3;
         UpdateHealth();
   
         score = 0;
         UpdateScore();
-        StartCoroutine (SpawnWaves());
+        wavesSpawner = StartCoroutine (SpawnWaves());
         PlayerPrefs.GetInt("currentScore");
     }
 
@@ -106,14 +111,16 @@ public class GameController : MonoBehaviour
 
     void NextLevelScore()
     {
-        if (score >= 100 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 100
+        if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 200
         {
             NextLevel();
             //SceneManager.LoadScene("Level2");
         }
-        if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
+        if (score >= 250 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
-            BossBattle(); //Endboss
+            
+            StartCoroutine(StartFinalBattle()); //Endboss
+            StopCoroutine(wavesSpawner);
         }
         if (score >= 300 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
@@ -124,6 +131,14 @@ public class GameController : MonoBehaviour
             NextLevel();
         }
     }
+
+    IEnumerator StartFinalBattle()
+    {
+        
+        yield return new WaitForSeconds(4);
+        BossBattle();
+    }
+
 
     public void BossBattle()
     {

@@ -6,11 +6,17 @@ public class BossController : MonoBehaviour
 {
     void Start()
     {
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void ToggleBoss()
     {
         gameObject.SetActive(true);
     }
+
+    private void OnDestroy()
+    {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().NextLevel();
+    }
+
 }
