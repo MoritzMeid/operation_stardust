@@ -141,10 +141,12 @@ public class GameController : MonoBehaviour
 
         for(int i = 0; i<3; i++)
         {
+            
             warning.SetActive(true);
             yield return new WaitForSecondsRealtime(1.6f);
+
             warning.SetActive(false);
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(1.6f);
         }
         
    
