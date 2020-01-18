@@ -120,7 +120,7 @@ public class GameController : MonoBehaviour
             NextLevel();
             //SceneManager.LoadScene("Level2");
         }
-        if (score >= 20 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
+        if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
             
             StartCoroutine(StartFinalBattle()); //Endboss
@@ -139,20 +139,15 @@ public class GameController : MonoBehaviour
     IEnumerator StartFinalBattle()
     {
 
+        for(int i = 0; i<3; i++)
+        {
+            warning.SetActive(true);
+            yield return new WaitForSecondsRealtime(1.6f);
+            warning.SetActive(false);
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
         
-        warning.SetActive(true);
-        yield return new WaitForSecondsRealtime(1.6f);
-        warning.SetActive(false);
-        yield return new WaitForSecondsRealtime(0.5f);
-        warning.SetActive(true);
-        yield return new WaitForSecondsRealtime(1.6f);
-        warning.SetActive(false);
-        yield return new WaitForSecondsRealtime(0.5f);
-        warning.SetActive(true);
-        yield return new WaitForSecondsRealtime(1.6f);
-        warning.SetActive(false);
-        yield return new WaitForSecondsRealtime(0.5f);
-
+   
         BossBattle();
     }
 
