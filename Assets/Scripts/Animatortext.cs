@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class Animatortext : MonoBehaviour
 {
@@ -9,17 +10,19 @@ public class Animatortext : MonoBehaviour
     //Message die bis zum Ende ausgegeben wird, buchstabe nach buchstabe 
     public string message;
     // Text damit die Message anzeigt wird 
-    public Text textComp;
+    
+        //public Text textComp;
+    public TextMeshProUGUI tmpComp;
 
     // Use this for initialization
     void Start()
     {
         //Get text component
-        textComp = GetComponent<Text>();
+        tmpComp = GetComponent<TextMeshProUGUI>();
         //Message will display will be at Text
-        message = textComp.text;
+        message = tmpComp.text;
         //Set the text to be blank first
-        textComp.text = "";
+        tmpComp.text = "";
         //Call the function and expect yield to return
         StartCoroutine(TypeText());
     }
@@ -30,7 +33,7 @@ public class Animatortext : MonoBehaviour
         foreach (char letter in message.ToCharArray())
         {
             // Fügt 1 Buchstaben hinzu 
-            textComp.text += letter;
+            tmpComp.text += letter;
             yield return 0;
             yield return new WaitForSeconds(letterPaused);
         }
