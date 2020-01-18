@@ -6,17 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
-    public TextMeshProUGUI ScoreText;
+    public AudioSource GameOverAudio;
+
     void Start()
     {
         gameObject.SetActive(false);
     }
 
-   public void ToggleEndMenu(float score)
+   public void ToggleEndMenu()
     {
         gameObject.SetActive(true);
         Time.timeScale = 0f;
-        ScoreText.text = "Score: " + (score + 10);
+        AudioListener.volume = 0.2f;
+        GameOverAudio.volume = 3.0f;
     }
 
     public void Restart()

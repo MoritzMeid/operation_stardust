@@ -7,9 +7,11 @@ using TMPro;
 public class GetScore : MonoBehaviour
 {
     public TextMeshProUGUI highscoreText;
+    public TextMeshProUGUI currentScoreText;
     // Start is called before the first frame update
     void Start()
     { 
         highscoreText.text = "Highscore: " + PlayerPrefs.GetInt("Highscore");
+        currentScoreText.text = "Score: " + PlayerPrefs.GetInt("currentScore");
     }
 }

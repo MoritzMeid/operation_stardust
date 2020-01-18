@@ -33,7 +33,8 @@ public class GameController : MonoBehaviour
     public GameOverMenu gameOverMenu;
     public NextLevelMenu nextLevelMenu;
     public BossController bossController;
-    public TextMeshProUGUI tmpScore;
+    public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI gameOverScore;
     public TextMeshProUGUI healthText;
 
     Coroutine wavesSpawner;
@@ -55,6 +56,7 @@ public class GameController : MonoBehaviour
         UpdateScore();
         wavesSpawner = StartCoroutine (SpawnWaves());
         PlayerPrefs.GetInt("currentScore");
+        PlayerPrefs.SetInt("currentScore", score);
     }
 
 
@@ -97,13 +99,14 @@ public class GameController : MonoBehaviour
 
     void UpdateScore ()
     {
-        tmpScore.text = "Score: " + score;
+        ScoreText.text = "Score: " + score;
+        gameOverScore.text = "Score: " + score;
     }
 
-     void currentScore ()
-    {
-        PlayerPrefs.SetInt("currentScore", score);
-    }
+    // void GetcurrentScore ()
+    //{
+    //    PlayerPrefs.SetInt("currentScore", score);
+    //}
 
     void setHighScore()
     {
@@ -167,7 +170,7 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverMenu.ToggleEndMenu(score);
+        gameOverMenu.ToggleEndMenu();
         Time.timeScale = 0f;
 
     }
