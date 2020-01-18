@@ -59,6 +59,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Level5");
         Time.timeScale = 1f;
     }
+
+    public void LevelTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
     public void QuitGame()
     {
         Application.Quit();

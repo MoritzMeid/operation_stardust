@@ -22,11 +22,14 @@ public class PlayerController : MonoBehaviour
     public int weaponHeat;
     public int weaponMAXHeat;
     private bool isHot;
+    internal bool powerUp;
+
 
     public AudioSource audioSource;
 
     private float nextFire;
-
+    float initAccelY;
+    float initAccelX;
     public Slider slider; 
 
     private void Start()
@@ -35,8 +38,16 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         slider = GameObject.Find("Magazin").GetComponent<Slider>();
         slider.value = 0;
+        getInitAccl();
+
     }
 
+
+    void getInitAccl()
+    {
+        initAccelX = Input.acceleration.x;
+        initAccelY = Input.acceleration.y;
+    }
 
     private void Update()
     {
@@ -50,8 +61,13 @@ public class PlayerController : MonoBehaviour
                 nextFire = Time.time + fireRate;
                 Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                 audioSource.Play();
-                weaponHeat++;
-                slider.value++;
+
+                if (!powerUp)
+                {
+                    weaponHeat++;
+                    slider.value++;
+                }
+                
                 
             }
 
@@ -84,22 +100,27 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        //float moveHorizontal = Input.GetAxis("Horizontal");
+        //float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.velocity = movement * speed;
+        //Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        //rb.velocity = movement * speed;
 
-        rb.position = new Vector3(
-            Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
-          0.0f,
-           Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
-           );
-       rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
+        //rb.position = new Vector3(
+        //    Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
+        //    0.0f,
+        //    Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
+        //    );
+        //rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
 
-/*
+
         float moveHorizontalGyro = Input.acceleration.x;
-        float moveVerticalGyro = Input.acceleration.y;
+        float moveVerticalGyro = Input.acceleration.y - initAccelY;
+
+        if (moveVerticalGyro < 0)
+        {
+            moveVerticalGyro = moveVerticalGyro * 5;
+        }
 
         Vector3 movementGyro = new Vector3(moveHorizontalGyro, 0.0f, moveVerticalGyro);
         rb.velocity = movementGyro * speed;
@@ -113,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    */
+
 
 
         //if (Input.touchCount > 0)
@@ -146,6 +167,7 @@ public class PlayerController : MonoBehaviour
         //);
         // rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
     }
+
 
 
  

@@ -26,24 +26,34 @@ public class GameController : MonoBehaviour
 
     public bool spawnAsteroid;
     public bool spawnEnemy;
+   
+    private GameObject warning;
 
-
+    public int damage;
     public GameOverMenu gameOverMenu;
     public NextLevelMenu nextLevelMenu;
     public BossController bossController;
     public TextMeshProUGUI tmpScore;
     public TextMeshProUGUI healthText;
 
+    Coroutine wavesSpawner;
+    
+
     private void Start()
     {
+        warning = GameObject.FindGameObjectWithTag("Warning");
+        warning.SetActive(false);
+
+
         gameOver = false;
         restart = false;
+       
         playerHealth = 3;
         UpdateHealth();
   
         score = 0;
         UpdateScore();
-        StartCoroutine (SpawnWaves());
+        wavesSpawner = StartCoroutine (SpawnWaves());
         PlayerPrefs.GetInt("currentScore");
     }
 
@@ -105,14 +115,16 @@ public class GameController : MonoBehaviour
 
     void NextLevelScore()
     {
-        if (score >= 100 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 100
+        if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 200
         {
             NextLevel();
             //SceneManager.LoadScene("Level2");
         }
         if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
-            BossBattle(); //Endboss
+            
+            StartCoroutine(StartFinalBattle()); //Endboss
+            StopCoroutine(wavesSpawner);
         }
         if (score >= 300 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //if you reach the highscore of 200
         {
@@ -124,12 +136,26 @@ public class GameController : MonoBehaviour
         }
     }
 
+    IEnumerator StartFinalBattle()
+    {
+
+        for(int i = 0; i<3; i++)
+        {
+            warning.SetActive(true);
+            yield return new WaitForSecondsRealtime(1.6f);
+            warning.SetActive(false);
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
+        
+   
+        BossBattle();
+    }
+
+
     public void BossBattle()
     {
         bossController.ToggleBoss();
     }
-
- 
 
     public void NextLevel()
     {
@@ -147,7 +173,7 @@ public class GameController : MonoBehaviour
     public void SubHealth()
     {
         if(GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject.active==true)
-        
+        // if (GameObject.FindGameObjectWithTag("Player").transform.GetChild(0) == isActiveAndEnabled)
         {
             return;
         }

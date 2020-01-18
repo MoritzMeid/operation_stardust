@@ -17,8 +17,12 @@ public class PowerUpTriggerR : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().powerUp = true;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().slider.value = 0;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().weaponHeat = 0;
             StartCoroutine(MultiShot());
-          
+            
 
         }
     }
@@ -37,8 +41,9 @@ public class PowerUpTriggerR : MonoBehaviour
         yield return new WaitForSeconds(PowerUpTime);
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpR>().enabled = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().powerUp = false;
         Destroy(gameObject);
         yield break;
-
+        
     }
 }
