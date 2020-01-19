@@ -48,6 +48,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("dialoguelevel3");
         Time.timeScale = 1f;
     }
+    public void LevelDialogueFour()
+    {
+        SceneManager.LoadScene("dialoguelevel4");
+        Time.timeScale = 1f;
+    }
     public void LevelOne()
     {
         SceneManager.LoadScene("Level1");
