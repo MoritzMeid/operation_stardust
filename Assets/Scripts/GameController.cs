@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour
         {
            PlayerPrefs.GetInt("Nextscore", score);
         }
-        if (score >= 600 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //Initiate Boss Battle
+        if (score >= 10 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //Initiate Boss Battle
         {
             
             StartCoroutine(StartFinalBattle()); //Endboss
