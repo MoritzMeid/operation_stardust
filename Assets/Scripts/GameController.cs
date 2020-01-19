@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour
     public float waveWait;
     
     public static float playerHealth;
-   // public GUIText scoreText;
     private int score;
     private bool gameOver;
     private bool restart;
@@ -37,6 +36,8 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI gameOverScore;
     public TextMeshProUGUI healthText;
 
+    public AudioSource hitSound;
+
     Coroutine wavesSpawner;
     
 
@@ -45,24 +46,31 @@ public class GameController : MonoBehaviour
         warning = GameObject.FindGameObjectWithTag("Warning");
         warning.SetActive(false);
 
-
         gameOver = false;
         restart = false;
-       
+
+        score = 0;
+
         playerHealth = 3;
         UpdateHealth();
   
-        score = 0;
         UpdateScore();
         wavesSpawner = StartCoroutine (SpawnWaves());
-        PlayerPrefs.GetInt("currentScore");
-        PlayerPrefs.GetInt("NextScore");
-        PlayerPrefs.SetInt("currentScore", score);
+
+        //if (PlayerPrefs.HasKey("Score"))
+        //{
+        //    if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1"))
+        //    {
+        //        PlayerPrefs.DeleteKey("Score");
+        //        score = 0;
+        //    }
+        //    else
+        //    {
+        //        score = PlayerPrefs.GetInt("Score");
+        //    }
+        //}
     }
-
-
   
-
     IEnumerator SpawnWaves()
     {
         while (true)
@@ -112,37 +120,37 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //void SaveScore()
+    //{
+    //    PlayerPrefs.SetInt("Score", score);
+    //}
+
     void NextLevelScore()
     {
         if (score >= 300 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1")) //if you reach the highscore of 200
         {
-            PlayerPrefs.SetInt("Nextscore", score);
+            //SaveScore();
             NextLevel();
-            //SceneManager.LoadScene("Level2");
         }
         //LEVEL 2
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
-        {
-           PlayerPrefs.GetInt("Nextscore", score);
-        }
         if (score >= 500 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //Initiate Boss Battle
         {
             
             StartCoroutine(StartFinalBattle()); //Endboss
             StopCoroutine(wavesSpawner);
         }
-            if (score >= 700 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //Next level
+            if (score >= 600 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //Next level
             {
                 NextLevel();
             }
 
         //LEVEL 3
-        if (score >= 800 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3")) 
+        if (score >= 600 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3")) 
         {
             StartCoroutine(StartFinalBattle()); //Endboss
             StopCoroutine(wavesSpawner);
         }
-            if (score >= 1000 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3")) //Next level
+            if (score >= 700 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3")) //Next level
             {
                 NextLevel();
             }
@@ -170,6 +178,7 @@ public class GameController : MonoBehaviour
 
     public void NextLevel()
     {
+        PlayerPrefs.Save();
         nextLevelMenu.ToggleNextMenu();
         Time.timeScale = 0f;
         warning.SetActive(false);
@@ -192,10 +201,9 @@ public class GameController : MonoBehaviour
         }
         else
         {
-
             playerHealth -= 1;
+            hitSound.Play();
             UpdateHealth();
-
         }
   
     }
@@ -210,7 +218,6 @@ public class GameController : MonoBehaviour
     public void UpdateHealth()
     {
         healthText.text = "Health: " + playerHealth;
-
     }
 
 }
