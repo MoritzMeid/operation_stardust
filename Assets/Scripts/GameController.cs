@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
         {
             for (int i = 0; i < hazardCount; i++)
             {
-                if (score >= 200 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
+                if (score >= 500 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
                 {
                     yield break;
                 }
@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour
         {
            PlayerPrefs.GetInt("Nextscore", score);
         }
-        if (score >= 10 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //Initiate Boss Battle
+        if (score >= 500 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //Initiate Boss Battle
         {
             
             StartCoroutine(StartFinalBattle()); //Endboss
