@@ -5,9 +5,13 @@ using UnityEngine;
 public class PowerUpTriggerR : MonoBehaviour
 {
     private GameController gameController;
+    AudioSource audioSource;
 
-   
-   
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public float PowerUpTime;
 
@@ -17,11 +21,13 @@ public class PowerUpTriggerR : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
+           
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().powerUp = true;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().slider.value = 0;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().weaponHeat = 0;
+            audioSource.Play();
             StartCoroutine(MultiShot());
+
             
 
         }
