@@ -9,11 +9,13 @@ public class GameController : MonoBehaviour
 {
 
     public GameObject[] hazards;
-    
+    public GameObject[] hazards2;
+    public GameObject[] hazards3;
 
     public Vector3 spawnValues;
     public Vector3 spawnValuesEnemy;
     public int hazardCount;
+    private int hazardCountOrigin; 
     public float spawnWait;
     public float startWait;
     public float waveWait;
@@ -55,13 +57,24 @@ public class GameController : MonoBehaviour
         gameOver = false;
         restart = false;
 
+        hazardCountOrigin = hazardCount;
+
         score = 0;
 
         playerHealth = 3;
         UpdateHealth();
   
         UpdateScore();
-        wavesSpawner = StartCoroutine (SpawnWaves());
+        
+        if (!(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level5")))
+        {
+            wavesSpawner = StartCoroutine(SpawnWaves());
+
+        }
+        else
+        {
+            wavesSpawner = StartCoroutine(SpwanEndlessWaves());
+        }
 
         //if (PlayerPrefs.HasKey("Score"))
         //{
@@ -97,6 +110,63 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(waveWait);
             hazardCount++;
         }
+    }
+
+    IEnumerator SpwanEndlessWaves()
+    {
+
+
+        while (true)
+        {
+            for (int i = 0; i < hazardCount; i++)
+            {
+                if(score <= 100)
+                {
+                
+                GameObject hazard = hazards[Random.Range(0, hazards.Length)];
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                Quaternion spawnRotation = Quaternion.identity;
+                Instantiate(hazard, spawnPosition, spawnRotation);
+
+                yield return new WaitForSeconds(spawnWait);
+
+                }
+                   else if (score <= 4000)
+                {
+
+                    GameObject hazard = hazards2[Random.Range(0, hazards.Length)];
+                    Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                    Quaternion spawnRotation = Quaternion.identity;
+                    Instantiate(hazard, spawnPosition, spawnRotation);
+
+                    yield return new WaitForSeconds(spawnWait);
+
+                }
+                    else
+                {
+
+                    GameObject hazard = hazards3[Random.Range(0, hazards.Length)];
+                    Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                    Quaternion spawnRotation = Quaternion.identity;
+                    Instantiate(hazard, spawnPosition, spawnRotation);
+
+                    yield return new WaitForSeconds(spawnWait);
+
+                }
+
+
+            }
+            yield return new WaitForSeconds(waveWait);
+            if(hazardCount > 15)
+            {
+                hazardCount = hazardCountOrigin;
+            }else
+            {
+                hazardCount++;
+            }
+           
+        }
+        
     }
 
     public void AddScore (int newScoreValue)
@@ -223,4 +293,10 @@ public class GameController : MonoBehaviour
         healthText.text = "Health: " + playerHealth;
     }
 
+
+    
+
 }
+
+
+
