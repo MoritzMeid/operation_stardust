@@ -147,7 +147,7 @@ public class GameController : MonoBehaviour
             }
 
         //LEVEL 3
-        if (score >= 600 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3") && bossActive == false) 
+        if (score >= 20 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3") && bossActive == false) 
         {
             StartCoroutine(StartFinalBattle()); //Endboss
             StopCoroutine(wavesSpawner);

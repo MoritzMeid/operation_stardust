@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     private bool isHot;
     internal bool powerUp;
 
+    public AudioClip ammoEmpty;
+    public AudioClip ammoFull; 
+
 
     public AudioSource audioSource;
 
@@ -73,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
             if(weaponHeat == weaponMAXHeat)
             {
+                AudioSource.PlayClipAtPoint(ammoEmpty, transform.position);
                 StartCoroutine(WeaponCooldown());
             }
 
@@ -93,7 +97,7 @@ public class PlayerController : MonoBehaviour
             weaponHeat = weaponHeat - 2;
             slider.value = slider.value - 2;
         }
-
+        AudioSource.PlayClipAtPoint(ammoFull, transform.position);
         isHot = false;
     }
 
