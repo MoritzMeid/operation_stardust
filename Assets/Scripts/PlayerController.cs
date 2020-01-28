@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
             if(weaponHeat == weaponMAXHeat)
             {
-                AudioSource.PlayClipAtPoint(ammoEmpty, transform.position);
+                AudioSource.PlayClipAtPoint(ammoEmpty, new Vector3(0, 12, 7));
                 StartCoroutine(WeaponCooldown());
             }
 
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
             weaponHeat = weaponHeat - 2;
             slider.value = slider.value - 2;
         }
-        AudioSource.PlayClipAtPoint(ammoFull, transform.position);
+        AudioSource.PlayClipAtPoint(ammoFull, new Vector3(0, 12, 7));
         isHot = false;
     }
 
