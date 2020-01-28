@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameOverMenu : MonoBehaviour
 {
     public AudioSource GameOverAudio;
+    private float oldVolume;
 
     void Start()
     {
@@ -17,17 +18,22 @@ public class GameOverMenu : MonoBehaviour
     {
         gameObject.SetActive(true);
         Time.timeScale = 0f;
-        AudioListener.volume = 0.2f;
+        oldVolume = AudioListener.volume;
+       
+        //AudioListener.volume = 0.2f;
         GameOverAudio.volume = 3.0f;
     }
 
     public void Restart()
     {
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+       
     }
 
     public void ToMenu()
     {
+       
         SceneManager.LoadScene("Menu");
     }
 }

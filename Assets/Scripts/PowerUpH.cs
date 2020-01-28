@@ -7,9 +7,11 @@ public class PowerUpH : MonoBehaviour
     private GameController gameController;
     public GameObject pickupEffect;
     public int scoreValue;
+    public AudioClip heart; 
 
     private void Start()
     {
+        
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
         {
@@ -29,7 +31,7 @@ public class PowerUpH : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameController.PowerUpH();
-           
+            AudioSource.PlayClipAtPoint(heart, transform.position);
             Destroy(gameObject);
 
         }
