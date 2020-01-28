@@ -36,6 +36,10 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI gameOverScore;
     public TextMeshProUGUI healthText;
 
+    private bool bossActive;
+
+    
+
     public AudioSource hitSound;
 
     Coroutine wavesSpawner;
@@ -43,6 +47,8 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+
+        bossActive = false;
         warning = GameObject.FindGameObjectWithTag("Warning");
         warning.SetActive(false);
 
@@ -77,12 +83,7 @@ public class GameController : MonoBehaviour
         {
             for (int i = 0; i < hazardCount; i++)
             {
-                if (score >= 500 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
-                {
-                    yield break;
-                }
-                else
-                {
+               
                     GameObject hazard = hazards[Random.Range(0, hazards.Length)];
                     Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                     Quaternion spawnRotation = Quaternion.identity;
@@ -90,7 +91,7 @@ public class GameController : MonoBehaviour
 
                     yield return new WaitForSeconds(spawnWait);
 
-                }
+                
                 
             }
             yield return new WaitForSeconds(waveWait);
@@ -133,11 +134,12 @@ public class GameController : MonoBehaviour
             NextLevel();
         }
         //LEVEL 2
-        if (score >= 500 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //Initiate Boss Battle
+        if (score >= 500 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2") && bossActive == false) //Initiate Boss Battle
         {
             
             StartCoroutine(StartFinalBattle()); //Endboss
             StopCoroutine(wavesSpawner);
+            bossActive = true;
         }
             if (score >= 600 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2")) //Next level
             {
@@ -145,10 +147,11 @@ public class GameController : MonoBehaviour
             }
 
         //LEVEL 3
-        if (score >= 600 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3")) 
+        if (score >= 600 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3") && bossActive == false) 
         {
             StartCoroutine(StartFinalBattle()); //Endboss
             StopCoroutine(wavesSpawner);
+            bossActive = true;
         }
             if (score >= 700 && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level3")) //Next level
             {
@@ -167,6 +170,7 @@ public class GameController : MonoBehaviour
             warning.SetActive(false);
             yield return new WaitForSecondsRealtime(1.6f);
         }
+        Destroy(warning);
         BossBattle();
     }
 
@@ -188,8 +192,7 @@ public class GameController : MonoBehaviour
     {
         gameOverMenu.ToggleEndMenu();
         Time.timeScale = 0f;
-        warning.SetActive(false);
-
+        
     }
 
     public void SubHealth()
