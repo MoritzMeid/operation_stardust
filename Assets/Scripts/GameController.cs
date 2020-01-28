@@ -40,11 +40,16 @@ public class GameController : MonoBehaviour
 
     private bool bossActive;
 
-    
+    private bool crs_runnig;
+    private int shieldDuration; 
+
+
+
 
     public AudioSource hitSound;
 
     Coroutine wavesSpawner;
+    Coroutine ShieldDuration;
     
 
     private void Start()
@@ -293,7 +298,37 @@ public class GameController : MonoBehaviour
         healthText.text = "Health: " + playerHealth;
     }
 
+    public void ToggleShield()
+    {
 
+        if (crs_runnig)
+        {
+            shieldDuration += 5;
+        }
+        else
+        {
+            shieldDuration = 5;
+            ShieldDuration = StartCoroutine(ShieldActive());
+        }
+        //ToDo abgleich ob Schild aktiv
+        //wenn ja, dann int addieren 
+        // wenn nein, dann starten 
+    }
+
+     IEnumerator ShieldActive()
+    {
+        crs_runnig = true;
+        GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject.SetActive(true);
+        while (shieldDuration >= 0)
+        {
+            yield return new WaitForSeconds(1);
+            shieldDuration--;
+        }
+
+        crs_runnig = false;
+        GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject.SetActive(false);
+        yield break; 
+    }
     
 
 }
