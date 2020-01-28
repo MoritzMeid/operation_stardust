@@ -6,13 +6,14 @@ public class PowerUpShield : MonoBehaviour
 {
     AudioSource audioSource;
     public float PowerUpTime;
+    public AudioClip shield;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            audioSource = GetComponent<AudioSource>();
+            //audioSource = GetComponent<AudioSource>();
             StartCoroutine(Shield());
-
+            
 
         }
     }
@@ -23,7 +24,9 @@ public class PowerUpShield : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("PowerupH").gameObject.SetActive(false);
 
-        audioSource.Play();
+        //audioSource.Play();
+
+        AudioSource.PlayClipAtPoint(shield, new Vector3(0, 12, 7));
 
         GetComponent<Collider>().enabled = false;
 
