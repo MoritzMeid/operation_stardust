@@ -22,7 +22,7 @@ public class PauseMenu : MonoBehaviour
     //    }
     //}
 
-    public void Resume ()
+    public void Resume()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
@@ -36,4 +36,11 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
+    }
 }
