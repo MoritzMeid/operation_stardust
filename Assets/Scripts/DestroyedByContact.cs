@@ -41,7 +41,7 @@ public class DestroyedByContact : MonoBehaviour
         if (other.tag == "Player")
         {
 
-            Handheld.Vibrate();
+          //  Handheld.Vibrate();
             gameController.SubHealth();
         }
 

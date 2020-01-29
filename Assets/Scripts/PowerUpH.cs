@@ -31,7 +31,7 @@ public class PowerUpH : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameController.PowerUpH();
-            AudioSource.PlayClipAtPoint(heart, transform.position);
+            AudioSource.PlayClipAtPoint(heart, new Vector3(0, 12, 7));
             Destroy(gameObject);
 
         }
