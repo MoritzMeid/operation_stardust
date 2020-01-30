@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
 
         score = 0;
 
-        playerHealth = 3;
+        playerHealth = 5;
         UpdateHealth();
   
         UpdateScore();
